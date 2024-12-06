@@ -2,8 +2,64 @@
 
 {% block content %}
 
-<h1>Module 3 - Runners Example</h1>
-<br>
-<img src="{{ url_for('static', filename='assets/tyler.jpg') }}" alt="Tyler with his cool Glasses" width="300">
+<div class="hero-section" style="background-image: url('{{ url_for('static', filename='assets/football_field.jpg') }}'); background-size: cover; background-position: center; padding: 150px 0; <style>
+    .text-auburn-blue {
+        color: #0c2340;
+    }
+    .btn-auburn-orange {
+        background-color: #e87722;
+        color: #ffffff;
+        border: none;
+    }
+    .btn-auburn-orange:hover {
+        background-color: #c5601e;
+    }
+</style>
+</head> text-shadow: 2px 2px 5px #000000;">
+    <div class="container">
+        <h1 class="display-4 font-weight-bold">Welcome to WDE Sports</h1>
+        <p class="lead">Your ultimate college football recruiting hub</p>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="text-center">
+        <h2 class="font-weight-bold text-primary">Our Mission</h2>
+        <p class="lead">At WDE Sports, we are committed to connecting talented players with college teams, providing up-to-date recruitment information, and showcasing the best talent across the nation.</p>
+
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 text-center mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Player Profiles</h5>
+                    <p class="card-text">Explore detailed profiles of top players, including stats, highlights, and recruitment status.</p>
+                    <a href="{{ url_for('players.player') }}" class="btn btn-primary">View Players</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Team Information</h5>
+                    <p class="card-text">Get insights into college teams, their conferences, and recruitment needs.</p>
+                    <a href="{{ url_for('teams.team') }}" class="btn btn-primary">View Teams</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Visit Schedules</h5>
+                    <p class="card-text">Keep track of upcoming campus visits and feedback from recruitment events.</p>
+                    <a href="{{ url_for('visits.visit') }}" class="btn btn-primary">View Visits</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

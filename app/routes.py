@@ -9,5 +9,16 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route('/players')
+def players():
+    return render_template('players.html')
+
+@app.route('/teams')
+def teams():
+    return render_template('teams.html')
+
+@app.route('/visits')
+def visits():
+    return render_template('visits.html')
 
 

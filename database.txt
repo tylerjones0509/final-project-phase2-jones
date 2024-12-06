@@ -1,0 +1,23 @@
+Table players {
+    player_id int [pk, increment, note: "Unique identifier for each player"]
+    name varchar(100) [note: "Player's name"]
+    position varchar(50) [note: "Player's position"]
+    high_school varchar(100) [note: "High school attended"]
+    recruitment_status varchar(50) [note: "Current recruitment status"]
+}
+
+Table teams {
+    team_id int [pk, increment, note: "Unique identifier for each team"]
+    name varchar(100) [note: "Team name"]
+    conference varchar(50) [note: "Team's conference"]
+    location varchar(100) [note: "Team's location"]
+}
+
+Table visits {
+    visit_id int [pk, increment, note: "Unique identifier for each visit"]
+    player_id int [ref: > players.player_id, note: "FK: References players(player_id)"]
+    team_id int [ref: > teams.team_id, note: "FK: References teams(team_id)"]
+    visit_date date [note: "Date of the visit"]
+    feedback text [note: "Feedback about the visit"]
+    status varchar(50) [note: "Status of the visit"]
+}

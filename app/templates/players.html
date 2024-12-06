@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Players</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
+        Add New Player
+    </button>
+
+    <!-- Table displaying all players -->
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Player ID</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>High School</th>
+                <th>Recruitment Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in all_players %}
+            <tr>
+                <td>{{ player.player_id }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.position }}</td>
+                <td>{{ player.high_school }}</td>
+                <td>{{ player.recruitment_status }}</td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPlayerModal{{ player.player_id }}">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePlayerModal{{ player.player_id }}">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Edit Player Modal -->
+            <div class="modal fade" id="editPlayerModal{{ player.player_id }}" tabindex="-1" aria-labelledby="editPlayerModalLabel{{ player.player_id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editPlayerModalLabel{{ player.player_id }}">Edit Player</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="{{ url_for('players.update_player', player_id=player.player_id) }}">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="playerName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="name" value="{{ player.name }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="playerPosition" class="form-label">Position</label>
+                                    <input type="text" class="form-control" name="position" value="{{ player.position }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="playerHighSchool" class="form-label">High School</label>
+                                    <input type="text" class="form-control" name="high_school" value="{{ player.high_school }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recruitmentStatus" class="form-label">Recruitment Status</label>
+                                    <input type="text" class="form-control" name="recruitment_status" value="{{ player.recruitment_status }}" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-warning">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Player Modal -->
+            <div class="modal fade" id="deletePlayerModal{{ player.player_id }}" tabindex="-1" aria-labelledby="deletePlayerModalLabel{{ player.player_id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deletePlayerModalLabel{{ player.player_id }}">Delete Player</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this player?
+                        </div>
+                        <div class="modal-footer">
+                            <form method="post" action="{{ url_for('players.delete_player', player_id=player.player_id) }}">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Player Modal -->
+<div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPlayerModalLabel">Add New Player</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{{ url_for('players.player') }}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="playerName" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="playerPosition" class="form-label">Position</label>
+                        <input type="text" class="form-control" name="position" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="playerHighSchool" class="form-label">High School</label>
+                        <input type="text" class="form-control" name="high_school" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recruitmentStatus" class="form-label">Recruitment Status</label>
+                        <input type="text" class="form-control" name="recruitment_status" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Player</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
