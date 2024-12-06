@@ -2,14 +2,17 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Visits</h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVisitModal">
-        Add New Visit
-    </button>
+    <div class="text-center">
+        <h1 class="display-4 font-weight-bold text-auburn-blue">Visits</h1>
+        <p class="lead text-auburn-blue">Track player visits, provide feedback, and update status.</p>
+        <button type="button" class="btn btn-auburn-orange" data-bs-toggle="modal" data-bs-target="#addVisitModal">
+            Add New Visit
+        </button>
+    </div>
 
     <!-- Table displaying all visits -->
-    <table class="table table-striped mt-4">
-        <thead>
+    <table class="table table-striped mt-5 shadow">
+        <thead class="bg-auburn-blue text-light">
             <tr>
                 <th>Visit ID</th>
                 <th>Player ID</th>
@@ -137,10 +140,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Visit</button>
+                    <button type="submit" class="btn btn-auburn-orange">Add Visit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 {% endblock %}
+
