@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, request, url_for, redirect, flash
+from flask import Blueprint, render_template, request, url_for, redirect, flash, jsonify
 from app.db_connect import get_db
+
+
 
 visits = Blueprint('visits', __name__)
 
@@ -106,3 +108,30 @@ def delete_visit(visit_id):
 
     flash('Visit deleted successfully!', 'danger')
     return redirect(url_for('visits.visit'))
+
+from pymysql.cursors import DictCursor  # Import DictCursor
+
+@visits.route('/chart_data', methods=['GET'])
+def chart_data():
+    db = get_db()
+    cursor = db.cursor(cursor=DictCursor)  # Use DictCursor for dictionary-based access
+
+    # Query data for visualization
+    cursor.execute("""
+        SELECT 
+            t.name AS team_name, 
+            COUNT(v.visit_id) AS visit_count
+        FROM visits v
+        INNER JOIN teams t ON v.team_id = t.team_id
+        GROUP BY t.name
+    """)
+    team_visits = cursor.fetchall()
+
+    # Transform into a JSON response
+    data = {
+        "teams": [row["team_name"] for row in team_visits],
+        "visit_counts": [row["visit_count"] for row in team_visits]
+    }
+
+    return jsonify(data)
+
